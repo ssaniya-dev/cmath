@@ -1,5 +1,5 @@
 #include "vector.hpp"
-
+#include <cmath>
 const Vector VECTOR_UNDEFINED = {0, NULL};
 
 /**
@@ -111,6 +111,34 @@ Vector subtract(Vector v1, Vector v2) {
 }
 
 /**
+ * Multiplying two vectors
+*/
+Vector multiply(Vector v1, Vector v2) {
+    if (v1.capacity != v2.capacity) {
+        return VECTOR_UNDEFINED;
+    }
+    Vector vec = allocate_mem(v1.capacity);
+    for (unsigned int i = 0; i < v1.capacity; i++) {
+        vec.values[i] = v1.values[i] * v2.values[i];
+    }
+    return vec;
+}
+
+/**
+ * Dividing two vectors
+*/
+Vector divide(Vector v1, Vector v2) {
+    if (v1.capacity != v2.capacity) {
+        return VECTOR_UNDEFINED;
+    }
+    Vector vec = allocate_mem(v1.capacity);
+    for (unsigned int i = 0; i < v1.capacity; i++) {
+        vec.values[i] = v1.values[i] / v2.values[i];
+    }
+    return vec;
+}
+
+/**
  * Dot product of two vectors
 */
 float dot(Vector v1, Vector v2) {
@@ -128,8 +156,14 @@ float dot(Vector v1, Vector v2) {
  * Cross product of two vectors
 */
 Vector cross(Vector v1, Vector v2) {
-    // IMPLEMENT THIS LATER
-    return v1
+    if (v1.capacity != 3 || v2.capacity != 3) {
+        return VECTOR_UNDEFINED;
+    }
+    Vector vec = allocate_mem(3);
+    vec.values[0] = v1.values[1] * v2.values[2] - v1.values[2] * v2.values[1];
+    vec.values[1] = v1.values[2] * v2.values[0] - v1.values[0] * v2.values[2];
+    vec.values[2] = v1.values[0] * v2.values[1] - v1.values[1] * v2.values[0];
+    return vec;
 }
 
 /**
@@ -154,4 +188,46 @@ Vector scalar_div(Vector v, float scalar) {
     return vec;
 }
 
+/**
+ * Figure out if vectors are orthogonal
+*/
+bool orthogonal(Vector v1, Vector v2) {
+    return dot(v1, v2) == 0.0f;
+}
+
+/**
+ * Gets the magnitude of a vector
+*/
+float magnitude(Vector v) {
+    float sum = 0.0f;
+    for (unsigned int i = 0; i < v.capacity; i++) {
+        sum += v.values[i] * v.values[i];
+    }
+    return sqrt(sum);
+}
+
+/**
+ * Gets the unit vector of a vector
+*/
+Vector unit(Vector v) {
+    return scalar_div(v, magnitude(v));
+}
+
+/**
+ * Gets the angle between two vectors
+*/
+float angle(Vector v1, Vector v2) {
+    return acos(dot(v1, v2) / (magnitude(v1) * magnitude(v2)));
+}
+
+/**
+ * Exponentiate a vector
+*/
+Vector exp(Vector v, float exp) {
+    Vector vec = allocate_mem(v.capacity);
+    for (unsigned int i = 0; i < v.capacity; i++) {
+        vec.values[i] = pow(v.values[i], exp);
+    }
+    return vec;
+}
 

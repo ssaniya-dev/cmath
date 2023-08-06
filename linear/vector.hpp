@@ -63,6 +63,16 @@ Vector add(Vector v1, Vector v2);
 Vector subtract(Vector v1, Vector v2);
 
 /**
+ * Multiply two vectors
+*/
+Vector multiply(Vector v1, Vector v2);
+
+/**
+ * Divide two vectors
+*/
+Vector divide(Vector v1, Vector v2);
+
+/**
  * Dot product of two vectors
 */
 float dot(Vector v1, Vector v2);
@@ -81,5 +91,30 @@ Vector scalar_mult(Vector v, float scalar);
  * Scalar division of a vector
 */
 Vector scalar_div(Vector v, float scalar);
+
+/**
+ * Figure out if vectors are orthogonal
+*/
+bool orthogonal(Vector v1, Vector v2);
+
+/**
+ * Gets the magnitude of a vector
+*/
+float magnitude(Vector v);
+
+/**
+ * Gets the unit vector of a vector
+*/
+Vector unit(Vector v);
+
+/**
+ * Gets the angle between two vectors
+*/
+float angle(Vector v1, Vector v2);
+
+/**
+ * Exponentiate a vector
+*/
+Vector exp(Vector v, float exponent);
 
 #endif
