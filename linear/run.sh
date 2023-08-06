@@ -1,3 +1,3 @@
 #!/bin/bash
-g++ -o ./run ./main.cpp
+g++ -o ./run ./main.cpp ./vector.cpp
 ./run
